@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>七巧板</title>
+</head>
+<body>
+<canvas id="canvas" width="400" height="400"></canvas>
+
+<script>
+    window.onload = function () {
+        var draw = document.getElementById('canvas');
+        var cfg = [
+            {p: [{x: 0, y: 0}, {x: 200, y: 200}, {x: 400, y: 0}], color: 'brown'},
+            {p: [{x: 0, y: 0}, {x: 200, y: 200}, {x: 0, y: 400}], color: 'green'},
+            {p: [{x: 400, y: 0}, {x: 400, y: 200}, {x: 300, y: 300}, {x: 300, y: 100}], color: 'red'},
+            {p: [{x: 300, y: 100}, {x: 200, y: 200}, {x: 300, y: 300}], color: 'yellow'},
+            {p: [{x: 200, y: 200}, {x: 100, y: 300}, {x: 200, y: 400}, {x: 300, y: 300}], color: 'purple'},
+            {p: [{x: 100, y: 300}, {x: 0, y: 400}, {x: 200, y: 400}], color: 'pink'},
+            {p: [{x: 200, y: 400}, {x: 400, y: 200}, {x: 400, y: 400}], color: 'orange'}
+        ];
+        if(draw.getContext){
+            var context = draw.getContext('2d');
+            drawing(cfg,context);
+            for(var i =0;i<cfg.length;i++){
+               // drawing2(cfg[i],context)
+            }
+
+
+        }
+
+        function drawing(cfg, cxt) {
+            cxt.beginPath();
+            for(var i =0;i<cfg.length;i++){
+                cxt.beginPath();
+                cxt.moveTo((cfg[i].p)[0].x,(cfg[i].p)[0].y);
+                for(var j = 1;j<cfg[i].p.length;j++){
+                    cxt.lineTo((cfg[i].p)[j].x,(cfg[i].p)[j].y)
+                }
+                cxt.closePath();
+                cxt.fillStyle = cfg[i].color;
+                cxt.fill();
+            }
+
+        }
+        function drawing2(piece, cxt) {
+            cxt.beginPath();
+            cxt.moveTo(piece.p[0].x,piece.p[0].y);
+            for(var i =1;i<piece.p.length;i++){
+                cxt.lineTo(piece.p[i].x,piece.p[i].y)
+            }
+            cxt.closePath();
+            cxt.fillStyle = piece.color;
+            cxt.fill();
+            cxt.lineWidth = 20;
+            cxt.strokeStyle = 'black';
+
+            cxt.stroke()
+        }
+    };
+
+
+</script>
+</body>
+</html>

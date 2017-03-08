@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小球运动模型</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #canvas{
+            background: #cccccc;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+    window.onload = function () {
+        var wrap = document.getElementById('canvas'),
+            winW =  1280,
+            winH = 600,
+            ball = {x:500,y:100,r:20,g:2,vx:-3,vy:-10,color:'blue'};
+
+        wrap.width = winW;
+        wrap.height = winH;
+        if(wrap.getContext){
+            var context = wrap.getContext('2d');
+
+            setInterval(function () {
+                render(ball.x,ball.y,ball.r,ball.color,context);
+                update();
+            },100)
+        }
+        function render(x,y,r,color,cxt) {
+            cxt.clearRect(0,0,cxt.canvas.width,cxt.canvas.height);
+            cxt.fillStyle = color ;
+            cxt.beginPath();
+            cxt.arc(x,y,r,0,2*Math.PI);
+            cxt.closePath();
+            cxt.fill();
+        }
+        function update() {
+            ball.x += ball.vx;
+            ball.y += ball.vy;
+            ball.vy += ball.g;
+
+
+            if(ball.y >= winH - ball.r){
+                ball.y = winH - ball.r;
+                ball.vy = -ball.vy*0.5;
+            }
+
+        }
+    }
+</script>
+</body>
+</html>
